@@ -14,7 +14,7 @@ feature "Creating Tickets" do
     within("h2") { page.should have_content("New Ticket") }
   end
 
-  scenario "Creating a ticket" do
+  scenario "Creating a ticket." do
     fill_in "Title", :with => "Non-standards compliance"
     fill_in "Description", :with => "My pages are ugly!"
     click_button "Create Ticket"
@@ -24,14 +24,14 @@ feature "Creating Tickets" do
     end
   end
 
-  scenario "Creating a ticket without valid attributes fails" do
+  scenario "Creating a ticket without valid attributes fails." do
     click_button "Create Ticket"
     page.should have_content("Ticket has not been created.")
     page.should have_content("Title can't be blank")
     page.should have_content("Description can't be blank")
   end
 
-  scenario "Description must be longer than 10 characters" do
+  scenario "Description must be longer than 10 characters." do
     fill_in "Title", :with => "Non-standards compliance"
     fill_in "Description", :with=> "it sucks"
     click_button "Create Ticket"
@@ -39,14 +39,18 @@ feature "Creating Tickets" do
     page.should have_content("Description is too short")
   end
 
-  scenario "Creating a ticket with an attachment" do
+  scenario "Creating a ticket with an attachment." do
     fill_in "Title", :width => "Add documentation for blink tag"
     fill_in "Description", :width => "The blink tag has a speed attribute"
-    attach_file "File", "spec/fixtures/speed.txt"
+    attach_file "File #1", File.expand_path("spec/fixtures/speed.txt")
+    attach_file "File #2", "spec/fixtures/spin.txt"
+    attach_file "File #3", "spec/fixtures/gradient.txt"
     click_button "Create Ticket"
     page.should have_content("Ticket has been created.")
     within("#ticket .asset") do
       page.should have_content("speed.txt")
+      page.should have_content("spin.txt")
+      page.should have_content("gradient.txt")
     end
   end
 
