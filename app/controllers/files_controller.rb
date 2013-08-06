@@ -10,4 +10,12 @@ class FilesController < ApplicationController
       flash[:alert] = "The asset you were looking for could not be found."
       redirect_to root_path
   end
+
+@ticket =Ticket.new
+asset =@ticket.assets.build
+
+  def new
+    render :partial =>"files/form",
+    :locals => { :number => params[:nummber].to_i }
+  end
 end
