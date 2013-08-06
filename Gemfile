@@ -36,6 +36,7 @@ end
 
 group :test do
   gem 'selenium-webdriver'
+  gem 'database_cleaner', '0.7.2'
 	gem 'capybara', '1.1.2'
   gem 'factory_girl', '2.6.4'
   gem 'email_spec', '1.2.1'
